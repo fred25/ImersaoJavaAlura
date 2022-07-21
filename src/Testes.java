@@ -1,4 +1,3 @@
-import java.io.Console;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -23,21 +22,55 @@ public class Testes {
 
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
 
-        for(Map<String, String> filme : listaDeFilmes){
+        var PrimeiroFilme = listaDeFilmes.get(0);
 
-            double rating = Double.parseDouble(filme.get("imDbRating"));
+        String link = PrimeiroFilme.get("image");
 
-            System.out.println("Rating: " + rating);
+        String[] linkPicotado = link.split("@");
 
-            for(int i = 0; i<rating; i++){
-                System.out.print("💙️");
-            }
+        linkPicotado[linkPicotado.length-1] = "";
 
-            System.out.println();
-            System.out.println();
+        String resultado = "";
 
+        for (String pedaco : linkPicotado){
+            resultado += pedaco + "@";
         }
 
+        StringBuffer sb= new StringBuffer(resultado);  
+
+        sb.deleteCharAt(sb.length()-1);
+
+        String resultadoFinal = sb.toString();
+
+        resultadoFinal += ".jpg";
+
+        System.out.println(resultadoFinal);
+    
+    }
+
+    public String ajeitarLink(String link) {
+
+        String[] linkPicotado = link.split("@");
+
+        linkPicotado[linkPicotado.length-1] = "";
+
+        String resultado = "";
+
+        for (String pedaco : linkPicotado){
+            resultado += pedaco + "@";
+        }
+
+        StringBuffer sb= new StringBuffer(resultado);  
+
+        sb.deleteCharAt(sb.length()-1);
+
+        String resultadoFinal = sb.toString();
+
+        resultadoFinal += ".jpg";
+
+        return resultadoFinal;
+    
     }
 
 }
+
